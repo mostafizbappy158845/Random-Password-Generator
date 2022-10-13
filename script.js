@@ -1,5 +1,7 @@
 const lengthSlider = document.querySelector(".pass-length input"),
 options = document.querySelectorAll(".option input"),
+passwordInput =  document.querySelector(".input-box input"),
+passIndicator =  document.querySelector(".pass-indicator"),
 generateBtn =  document.querySelector(".generate-btn");
 
 const characters = { //object of ....
@@ -39,12 +41,18 @@ const generatePassword = () =>{
         }
         
     }
-    console.log (randomPassword);
+    passwordInput.value = randomPassword; //passing randomPassword to passInput value
+}
+
+const updatePassIndicator = () => {
+    passIndicator.id = lengthSlider.value <= 8 ? "weak" : lengthSlider.value <= 16 ? "medium" : "strong";
 }
 
 const updateSlider = () =>{
     //passing slider value as counter text
     document.querySelector(".pass-length span").innerText = lengthSlider.value;
+    generatePassword();
+    updatePassIndicator();
 }
 updateSlider();
 lengthSlider.addEventListener("input", updateSlider);
